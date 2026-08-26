@@ -10,17 +10,71 @@ const Transaction = require("../models/Transaction");
 
 
 // ==================================
-// Add Transaction Page
+// View All Transactions
 // ==================================
 
-router.get('/add', auth, function(req, res){
+router.get('/', auth, async function(req, res){
 
 
-    res.render('add_transaction');
+    try {
+
+
+        const transactions = await Transaction.find({
+
+            user: req.session.user.id
+
+        })
+        .sort({
+
+            date: -1
+
+        });
+
+
+
+        res.render(
+
+            "transactions",
+
+            {
+
+                transactions,
+
+                user: req.session.user
+
+            }
+
+        );
+
+
+
+    } catch(error){
+
+
+        console.log(error);
+
+        res.send("Unable to load transactions");
+
+
+    }
 
 
 });
 
+
+
+
+// ==================================
+// Add Transaction Page
+// ==================================
+
+router.get('/add', auth, function(req,res){
+
+
+    res.render("add_transaction");
+
+
+});
 
 
 
@@ -29,10 +83,10 @@ router.get('/add', auth, function(req, res){
 // Create Transaction
 // ==================================
 
-router.post('/add', auth, async function(req, res){
+router.post('/add', auth, async function(req,res){
 
 
-    try {
+    try{
 
 
         const {
@@ -56,22 +110,17 @@ router.post('/add', auth, async function(req, res){
         const transaction = new Transaction({
 
 
-            user: req.session.user.id,
+            user:req.session.user.id,
 
+            title,
 
-            title: title,
+            amount,
 
+            type,
 
-            amount: amount,
+            category,
 
-
-            type: type,
-
-
-            category: category,
-
-
-            date: date || Date.now()
+            date
 
 
 
@@ -79,23 +128,173 @@ router.post('/add', auth, async function(req, res){
 
 
 
-
         await transaction.save();
 
 
 
-
-        res.redirect('/dashboard');
-
+        res.redirect("/transactions");
 
 
 
-    } catch(error){
+    }catch(error){
 
 
         console.log(error);
 
-        res.send("Unable to save transaction");
+        res.send("Transaction creation failed");
+
+
+    }
+
+
+});
+
+
+
+
+
+// ==================================
+// Edit Transaction Page
+// ==================================
+
+router.get('/edit/:id', auth, async function(req,res){
+
+
+    try{
+
+
+        const transaction = await Transaction.findOne({
+
+            _id:req.params.id,
+
+            user:req.session.user.id
+
+        });
+
+
+
+        res.render(
+
+            "edit_transaction",
+
+            {
+
+                transaction
+
+            }
+
+        );
+
+
+
+    }catch(error){
+
+
+        console.log(error);
+
+        res.send("Unable to edit transaction");
+
+
+    }
+
+
+});
+
+
+
+
+
+// ==================================
+// Update Transaction
+// ==================================
+
+router.post('/edit/:id', auth, async function(req,res){
+
+
+    try{
+
+
+        await Transaction.findOneAndUpdate(
+
+            {
+
+                _id:req.params.id,
+
+                user:req.session.user.id
+
+            },
+
+
+            {
+
+                title:req.body.title,
+
+                amount:req.body.amount,
+
+                type:req.body.type,
+
+                category:req.body.category,
+
+                date:req.body.date
+
+            }
+
+
+        );
+
+
+
+        res.redirect("/transactions");
+
+
+
+    }catch(error){
+
+
+        console.log(error);
+
+        res.send("Update failed");
+
+
+    }
+
+
+});
+
+
+
+
+
+// ==================================
+// Delete Transaction
+// ==================================
+
+router.get('/delete/:id', auth, async function(req,res){
+
+
+    try{
+
+
+        await Transaction.findOneAndDelete({
+
+            _id:req.params.id,
+
+            user:req.session.user.id
+
+        });
+
+
+
+        res.redirect("/transactions");
+
+
+
+    }catch(error){
+
+
+        console.log(error);
+
+        res.send("Delete failed");
 
 
     }
