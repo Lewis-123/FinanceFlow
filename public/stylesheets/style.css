@@ -1,8 +1,43 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+font-family: Arial, sans-serif;
+
+background-color: #f8f9fa;
+
 }
 
-a {
-  color: #00B7FF;
+
+
+.hero {
+
+padding: 100px 0;
+
+background: linear-gradient(
+135deg,
+#1d3557,
+#457b9d
+);
+
+color:white;
+
+}
+
+
+
+.card {
+
+border:none;
+
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+}
+
+
+
+.navbar-brand {
+
+font-weight:bold;
+
+font-size:24px;
+
 }
