@@ -3,9 +3,7 @@ const GitHubStrategy = require("passport-github2").Strategy;
 const User = require("../models/User");
 
 
-
 module.exports = function(passport){
-
 
 
 passport.use(
@@ -23,7 +21,7 @@ clientSecret: process.env.GITHUB_CLIENT_SECRET,
 
 callbackURL:
 
-"http://localhost:3000/users/github/callback"
+process.env.GITHUB_CALLBACK_URL
 
 
 },
@@ -43,7 +41,6 @@ done
 ){
 
 
-
 try{
 
 
@@ -52,6 +49,8 @@ let user = await User.findOne({
 githubId: profile.id
 
 });
+
+
 
 
 
@@ -69,20 +68,28 @@ return done(null,user);
 
 user = new User({
 
+
 username: profile.username,
+
 
 email:
 
-profile.emails 
-? profile.emails[0].value 
-: profile.username + "@github.com",
+profile.emails
+
+? profile.emails[0].value
+
+: `${profile.username}@github.com`,
+
 
 password:"github",
+
 
 githubId:profile.id
 
 
+
 });
+
 
 
 
@@ -115,15 +122,21 @@ done(error,null);
 
 
 
+
+
 passport.serializeUser(
 
 (user,done)=>{
 
+
 done(null,user.id);
+
 
 }
 
 );
+
+
 
 
 
