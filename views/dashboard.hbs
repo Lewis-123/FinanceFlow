@@ -1,0 +1,128 @@
+{{> header}}
+
+
+<div class="container mt-5">
+
+
+<h1>
+Welcome {{user.username}}
+</h1>
+
+
+<p class="lead">
+Manage your personal finances here.
+</p>
+
+
+
+<a href="/transactions/add" class="btn btn-primary">
+
+Add Transaction
+
+</a>
+
+
+
+<hr>
+
+
+
+<h3>
+Your Transactions
+</h3>
+
+
+
+{{#if transactions.length}}
+
+
+<table class="table table-striped">
+
+
+<thead>
+
+<tr>
+
+<th>
+Title
+</th>
+
+
+<th>
+Amount
+</th>
+
+
+<th>
+Type
+</th>
+
+
+<th>
+Category
+</th>
+
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+
+{{#each transactions}}
+
+
+<tr>
+
+
+<td>
+{{this.title}}
+</td>
+
+
+<td>
+{{this.amount}}
+</td>
+
+
+<td>
+{{this.type}}
+</td>
+
+
+<td>
+{{this.category}}
+</td>
+
+
+</tr>
+
+
+{{/each}}
+
+
+</tbody>
+
+
+</table>
+
+
+{{else}}
+
+
+<p>
+No transactions added yet.
+</p>
+
+
+{{/if}}
+
+
+
+</div>
+
+
+
+{{> footer}}
