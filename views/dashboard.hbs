@@ -47,25 +47,27 @@ Your Transactions
 Title
 </th>
 
-
 <th>
 Amount
 </th>
-
 
 <th>
 Type
 </th>
 
-
 <th>
 Category
+</th>
+
+<th>
+Date
 </th>
 
 
 </tr>
 
 </thead>
+
 
 
 <tbody>
@@ -97,6 +99,11 @@ Category
 </td>
 
 
+<td>
+{{this.date}}
+</td>
+
+
 </tr>
 
 
@@ -109,12 +116,14 @@ Category
 </table>
 
 
+
 {{else}}
 
 
 <p>
 No transactions added yet.
 </p>
+
 
 
 {{/if}}

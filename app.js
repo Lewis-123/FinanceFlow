@@ -21,6 +21,7 @@ var hbs = require('hbs');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var transactionsRouter = require('./routes/transactions');
 
 
 var app = express();
@@ -33,7 +34,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 
-// Register HBS partials
+// Register partials
 
 hbs.registerPartials(
     path.join(__dirname, 'views/partials')
@@ -66,6 +67,7 @@ app.use(
 
         }
 
+
     })
 );
 
@@ -77,11 +79,11 @@ app.use(logger('dev'));
 
 app.use(express.json());
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended:false }));
 
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname,'public')));
 
 
 
@@ -91,11 +93,13 @@ app.use('/', indexRouter);
 
 app.use('/users', usersRouter);
 
+app.use('/transactions', transactionsRouter);
 
 
-// 404 Handler
 
-app.use(function(req, res, next) {
+// Error handling
+
+app.use(function(req,res,next){
 
     next(createError(404));
 
@@ -103,21 +107,26 @@ app.use(function(req, res, next) {
 
 
 
-// Error Handler
+app.use(function(err,req,res,next){
 
-app.use(function(err, req, res, next) {
 
     res.locals.message = err.message;
+
 
     res.locals.error = req.app.get('env') === 'development'
         ? err
         : {};
 
+
+
     res.status(err.status || 500);
+
 
     res.render('error');
 
+
 });
+
 
 
 module.exports = app;
