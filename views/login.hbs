@@ -1,0 +1,106 @@
+{{> header}}
+
+
+<div class="container mt-5">
+
+
+<h2 class="text-center">
+Login
+</h2>
+
+
+
+<form method="POST" action="/users/login">
+
+
+<div class="mb-3">
+
+<label>
+Email
+</label>
+
+
+<input
+
+type="email"
+
+name="email"
+
+class="form-control"
+
+required>
+
+
+</div>
+
+
+
+
+<div class="mb-3">
+
+<label>
+Password
+</label>
+
+
+<input
+
+type="password"
+
+name="password"
+
+class="form-control"
+
+required>
+
+
+</div>
+
+
+
+<button class="btn btn-success w-100">
+
+Login
+
+</button>
+
+
+</form>
+
+
+
+
+<hr>
+
+
+
+<div class="text-center">
+
+
+<p>
+Or continue with:
+</p>
+
+
+
+<a 
+
+href="/users/github"
+
+class="btn btn-dark w-100">
+
+
+Login with GitHub
+
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+{{> footer}}
