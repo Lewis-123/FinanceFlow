@@ -13,8 +13,7 @@ connectDB();
 
 const session = require("express-session");
 
-const MongoStore = require("connect-mongo");
-
+const MongoStore = require("connect-mongo").MongoStore;
 
 
 var hbs = require('hbs');
@@ -34,7 +33,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 
-// Register partials
+// Register HBS partials
 
 hbs.registerPartials(
     path.join(__dirname, 'views/partials')
@@ -94,7 +93,7 @@ app.use('/users', usersRouter);
 
 
 
-// Catch 404
+// 404 Handler
 
 app.use(function(req, res, next) {
 
@@ -104,7 +103,7 @@ app.use(function(req, res, next) {
 
 
 
-// Error handler
+// Error Handler
 
 app.use(function(err, req, res, next) {
 
