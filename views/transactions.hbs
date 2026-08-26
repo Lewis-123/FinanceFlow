@@ -9,11 +9,49 @@ My Transactions
 </h2>
 
 
+
+<form method="GET" action="/transactions" class="mb-4">
+
+
+<div class="input-group">
+
+
+<input
+
+type="text"
+
+name="search"
+
+class="form-control"
+
+placeholder="Search transactions..."
+
+value="{{search}}">
+
+
+<button class="btn btn-dark">
+
+Search
+
+</button>
+
+
+</div>
+
+
+</form>
+
+
+
+
+
 <a href="/transactions/add" class="btn btn-primary mb-3">
 
 Add Transaction
 
 </a>
+
+
 
 
 
@@ -28,17 +66,21 @@ Add Transaction
 Title
 </th>
 
+
 <th>
 Amount
 </th>
+
 
 <th>
 Type
 </th>
 
+
 <th>
 Category
 </th>
+
 
 <th>
 Actions
@@ -54,38 +96,54 @@ Actions
 <tbody>
 
 
+
 {{#each transactions}}
+
 
 
 <tr>
 
 
 <td>
+
 {{this.title}}
+
 </td>
 
 
+
 <td>
+
 {{this.amount}}
+
 </td>
 
 
+
 <td>
+
 {{this.type}}
+
 </td>
 
 
+
 <td>
+
 {{this.category}}
+
 </td>
+
 
 
 
 <td>
 
 
-<a 
+<a
+
 href="/transactions/edit/{{this._id}}"
+
 class="btn btn-warning btn-sm">
 
 Edit
@@ -94,9 +152,13 @@ Edit
 
 
 
-<a 
+
+<a
+
 href="/transactions/delete/{{this._id}}"
+
 class="btn btn-danger btn-sm"
+
 onclick="return confirm('Delete this transaction?')">
 
 Delete
@@ -107,7 +169,26 @@ Delete
 </td>
 
 
+
 </tr>
+
+
+
+
+{{else}}
+
+
+
+<tr>
+
+<td colspan="5">
+
+No transactions found.
+
+</td>
+
+</tr>
+
 
 
 {{/each}}
@@ -118,6 +199,7 @@ Delete
 
 
 </table>
+
 
 
 </div>

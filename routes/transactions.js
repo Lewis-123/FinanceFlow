@@ -2,53 +2,93 @@ const express = require("express");
 
 const router = express.Router();
 
-
 const auth = require("../middleware/auth");
 
 const Transaction = require("../models/Transaction");
 
 
-
 // ==================================
-// View All Transactions
+// View Transactions + Search
 // ==================================
 
-router.get('/', auth, async function(req, res){
+router.get('/', auth, async function(req, res) {
 
 
     try {
 
 
-        const transactions = await Transaction.find({
+        const search = req.query.search || "";
+
+
+
+        let query = {
 
             user: req.session.user.id
 
-        })
-        .sort({
+        };
 
-            date: -1
+
+
+        if(search.trim() !== ""){
+
+
+            query = {
+
+                user: req.session.user.id,
+
+                $or: [
+
+                    {
+                        title: {
+                            $regex: search.trim(),
+                            $options: "i"
+                        }
+                    },
+
+
+                    {
+                        category: {
+                            $regex: search.trim(),
+                            $options: "i"
+                        }
+                    }
+
+                ]
+
+            };
+
+
+        }
+
+
+
+
+        const transactions = await Transaction.find(query)
+            .sort({
+
+                date: -1
+
+            });
+
+
+
+
+
+        res.render("transactions", {
+
+
+            transactions: transactions,
+
+            user: req.session.user,
+
+            search: search
+
 
         });
 
 
 
-        res.render(
-
-            "transactions",
-
-            {
-
-                transactions,
-
-                user: req.session.user
-
-            }
-
-        );
-
-
-
-    } catch(error){
+    } catch(error) {
 
 
         console.log(error);
@@ -79,6 +119,7 @@ router.get('/add', auth, function(req,res){
 
 
 
+
 // ==================================
 // Create Transaction
 // ==================================
@@ -86,42 +127,23 @@ router.get('/add', auth, function(req,res){
 router.post('/add', auth, async function(req,res){
 
 
-    try{
-
-
-        const {
-
-            title,
-
-            amount,
-
-            type,
-
-            category,
-
-            date
-
-
-        } = req.body;
-
-
+    try {
 
 
         const transaction = new Transaction({
 
 
-            user:req.session.user.id,
+            user: req.session.user.id,
 
-            title,
+            title: req.body.title,
 
-            amount,
+            amount: req.body.amount,
 
-            type,
+            type: req.body.type,
 
-            category,
+            category: req.body.category,
 
-            date
-
+            date: req.body.date || Date.now()
 
 
         });
@@ -136,7 +158,7 @@ router.post('/add', auth, async function(req,res){
 
 
 
-    }catch(error){
+    } catch(error) {
 
 
         console.log(error);
@@ -152,7 +174,6 @@ router.post('/add', auth, async function(req,res){
 
 
 
-
 // ==================================
 // Edit Transaction Page
 // ==================================
@@ -160,34 +181,28 @@ router.post('/add', auth, async function(req,res){
 router.get('/edit/:id', auth, async function(req,res){
 
 
-    try{
+    try {
 
 
         const transaction = await Transaction.findOne({
 
-            _id:req.params.id,
+            _id: req.params.id,
 
-            user:req.session.user.id
+            user: req.session.user.id
 
         });
 
 
 
-        res.render(
+        res.render("edit_transaction", {
 
-            "edit_transaction",
+            transaction
 
-            {
-
-                transaction
-
-            }
-
-        );
+        });
 
 
 
-    }catch(error){
+    } catch(error) {
 
 
         console.log(error);
@@ -203,7 +218,6 @@ router.get('/edit/:id', auth, async function(req,res){
 
 
 
-
 // ==================================
 // Update Transaction
 // ==================================
@@ -211,7 +225,7 @@ router.get('/edit/:id', auth, async function(req,res){
 router.post('/edit/:id', auth, async function(req,res){
 
 
-    try{
+    try {
 
 
         await Transaction.findOneAndUpdate(
@@ -248,7 +262,7 @@ router.post('/edit/:id', auth, async function(req,res){
 
 
 
-    }catch(error){
+    } catch(error) {
 
 
         console.log(error);
@@ -272,7 +286,7 @@ router.post('/edit/:id', auth, async function(req,res){
 router.get('/delete/:id', auth, async function(req,res){
 
 
-    try{
+    try {
 
 
         await Transaction.findOneAndDelete({
@@ -289,7 +303,7 @@ router.get('/delete/:id', auth, async function(req,res){
 
 
 
-    }catch(error){
+    } catch(error) {
 
 
         console.log(error);
@@ -301,7 +315,6 @@ router.get('/delete/:id', auth, async function(req,res){
 
 
 });
-
 
 
 
