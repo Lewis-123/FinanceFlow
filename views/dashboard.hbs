@@ -10,28 +10,185 @@ Welcome {{user.username}}
 
 
 <p class="lead">
-Manage your personal finances here.
+Your financial overview
 </p>
 
 
 
-<a href="/transactions" class="btn btn-primary">
-View Transactions
+<div class="row mt-4">
+
+
+
+<div class="col-md-3">
+
+
+<div class="card text-center">
+
+
+<div class="card-body">
+
+
+<h5>
+Balance
+</h5>
+
+
+<h3>
+
+{{balance}}
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="card text-center">
+
+
+<div class="card-body">
+
+
+<h5>
+Income
+</h5>
+
+
+<h3>
+
+{{income}}
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="card text-center">
+
+
+<div class="card-body">
+
+
+<h5>
+Expenses
+</h5>
+
+
+<h3>
+
+{{expenses}}
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="card text-center">
+
+
+<div class="card-body">
+
+
+<h5>
+Transactions
+</h5>
+
+
+<h3>
+
+{{totalTransactions}}
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<hr class="mt-5">
+
+
+
+<a href="/transactions"
+
+class="btn btn-primary">
+
+Manage Transactions
+
 </a>
 
 
 
-<hr>
+
+<a href="/transactions/add"
+
+class="btn btn-success">
+
+Add Transaction
+
+</a>
 
 
 
-<h3>
-Your Transactions
+
+
+<h3 class="mt-5">
+Recent Transactions
 </h3>
 
 
-
-{{#if transactions.length}}
 
 
 <table class="table table-striped">
@@ -45,20 +202,19 @@ Your Transactions
 Title
 </th>
 
+
 <th>
 Amount
 </th>
+
 
 <th>
 Type
 </th>
 
-<th>
-Category
-</th>
 
 <th>
-Date
+Category
 </th>
 
 
@@ -68,44 +224,73 @@ Date
 
 
 
+
 <tbody>
 
 
+
 {{#each transactions}}
+
 
 
 <tr>
 
 
 <td>
+
 {{this.title}}
+
 </td>
 
 
+
 <td>
+
 {{this.amount}}
+
 </td>
 
 
+
 <td>
+
 {{this.type}}
+
 </td>
 
 
+
 <td>
+
 {{this.category}}
+
 </td>
 
-
-<td>
-{{this.date}}
-</td>
 
 
 </tr>
 
 
+
+
+{{else}}
+
+
+
+<tr>
+
+<td colspan="4">
+
+No transactions yet.
+
+</td>
+
+</tr>
+
+
+
 {{/each}}
+
 
 
 </tbody>
@@ -115,21 +300,8 @@ Date
 
 
 
-{{else}}
-
-
-<p>
-No transactions added yet.
-</p>
-
-
-
-{{/if}}
-
-
 
 </div>
-
 
 
 {{> footer}}

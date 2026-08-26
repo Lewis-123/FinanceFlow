@@ -2,7 +2,7 @@ body {
 
 font-family: Arial, sans-serif;
 
-background-color: #f8f9fa;
+background-color:#f8f9fa;
 
 }
 
@@ -10,9 +10,9 @@ background-color: #f8f9fa;
 
 .hero {
 
-padding: 100px 0;
+padding:100px 0;
 
-background: linear-gradient(
+background:linear-gradient(
 135deg,
 #1d3557,
 #457b9d
@@ -24,20 +24,42 @@ color:white;
 
 
 
+
 .card {
 
 border:none;
 
 box-shadow:0 5px 15px rgba(0,0,0,0.1);
 
+margin-bottom:20px;
+
 }
+
+
+
+
+
+.card h3 {
+
+font-weight:bold;
+
+}
+
 
 
 
 .navbar-brand {
 
+font-size:24px;
+
 font-weight:bold;
 
-font-size:24px;
+}
+
+
+
+table {
+
+background:white;
 
 }

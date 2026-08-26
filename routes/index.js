@@ -1,12 +1,18 @@
-var express = require('express');
+const express = require('express');
 
-var router = express.Router();
+const router = express.Router();
+
 
 const auth = require("../middleware/auth");
 
 const Transaction = require("../models/Transaction");
 
 
+
+
+// ==================================
+// Home Page
+// ==================================
 
 router.get('/', function(req, res, next) {
 
@@ -19,37 +25,97 @@ router.get('/', function(req, res, next) {
 
 
 
-// Dashboard
+// ==================================
+// Dashboard Analytics
+// ==================================
 
 router.get('/dashboard', auth, async function(req,res,next){
 
 
-    try{
+    try {
+
 
 
         const transactions = await Transaction.find({
 
-            user: req.session.user.id
+            user:req.session.user.id
 
         })
         .sort({
 
-            date: -1
+            date:-1
 
         });
 
 
 
-        res.render(
-            "dashboard",
-            {
 
-                user: req.session.user,
+        let income = 0;
 
-                transactions
+        let expenses = 0;
+
+
+
+        transactions.forEach(transaction => {
+
+
+            if(transaction.type === "income"){
+
+                income += Number(transaction.amount);
 
             }
+
+
+            else if(transaction.type === "expense"){
+
+
+                expenses += Number(transaction.amount);
+
+
+            }
+
+
+        });
+
+
+
+
+        const balance = income - expenses;
+
+
+
+
+
+        res.render(
+
+            "dashboard",
+
+            {
+
+
+                user:req.session.user,
+
+
+                transactions,
+
+
+                income,
+
+
+                expenses,
+
+
+                balance,
+
+
+                totalTransactions: transactions.length
+
+
+
+            }
+
         );
+
 
 
 
@@ -65,6 +131,8 @@ router.get('/dashboard', auth, async function(req,res,next){
 
 
 });
+
+
 
 
 
