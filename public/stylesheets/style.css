@@ -1,8 +1,8 @@
 body {
 
-font-family: Arial, sans-serif;
+font-family: 'Segoe UI', Arial, sans-serif;
 
-background-color:#f8f9fa;
+background:#f5f7fb;
 
 }
 
@@ -10,38 +10,66 @@ background-color:#f8f9fa;
 
 .hero {
 
-padding:100px 0;
 
-background:linear-gradient(
+padding:120px 0;
+
+
+background:
+
+linear-gradient(
 135deg,
-#1d3557,
-#457b9d
+#0f2027,
+#203a43,
+#2c5364
 );
+
 
 color:white;
 
+
 }
+
+
+
+
+.hero h1 {
+
+
+font-size:48px;
+
+font-weight:700;
+
+
+}
+
 
 
 
 
 .card {
 
+
 border:none;
 
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
+border-radius:15px;
 
-margin-bottom:20px;
+box-shadow:
+
+0 8px 20px rgba(0,0,0,0.08);
+
+
+transition:0.3s;
+
 
 }
 
 
 
+.card:hover {
 
 
-.card h3 {
+transform:translateY(-5px);
 
-font-weight:bold;
 
 }
 
@@ -50,16 +78,40 @@ font-weight:bold;
 
 .navbar-brand {
 
-font-size:24px;
 
 font-weight:bold;
+
+font-size:26px;
+
 
 }
 
 
 
+
+
+.btn {
+
+
+border-radius:25px;
+
+
+}
+
+
+
+
+
 table {
 
+
 background:white;
+
+
+border-radius:10px;
+
+
+overflow:hidden;
+
 
 }

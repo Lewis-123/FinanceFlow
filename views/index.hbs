@@ -1,28 +1,58 @@
 {{> header}}
 
 
+
 <section class="hero">
+
 
 <div class="container text-center">
 
+
 <h1>
-Welcome to FinanceFlow
+Take Control of Your Money
 </h1>
 
 
+
 <p class="lead">
-Track your income, expenses, and financial goals in one simple platform.
+
+FinanceFlow helps you track income, expenses, and financial progress.
+
 </p>
 
 
-<a href="/users/register" class="btn btn-primary btn-lg">
-Get Started
+
+
+{{#if user}}
+
+
+<a href="/dashboard" class="btn btn-light btn-lg">
+
+Go To Dashboard
+
 </a>
+
+
+{{else}}
+
+
+<a href="/users/register" class="btn btn-light btn-lg">
+
+Start Managing Your Finances
+
+</a>
+
+
+{{/if}}
+
 
 
 </div>
 
+
 </section>
+
+
 
 
 
@@ -32,69 +62,103 @@ Get Started
 <div class="row">
 
 
+
+
+
 <div class="col-md-4">
+
 
 <div class="card">
 
-<div class="card-body">
+
+<div class="card-body text-center">
+
 
 <h3>
 Track Expenses
 </h3>
 
+
 <p>
-Record and manage your daily spending.
+Monitor where your money goes.
 </p>
 
-</div>
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
+
+
 
 
 
 <div class="col-md-4">
 
+
 <div class="card">
 
-<div class="card-body">
+
+<div class="card-body text-center">
+
 
 <h3>
 Manage Income
 </h3>
 
+
 <p>
-Monitor your earnings and financial progress.
+Keep track of earnings and savings.
 </p>
 
-</div>
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
+
+
 
 
 
 <div class="col-md-4">
 
+
 <div class="card">
 
-<div class="card-body">
+
+<div class="card-body text-center">
+
 
 <h3>
-Smart Insights
+Financial Insights
 </h3>
 
+
 <p>
-Understand your financial habits.
+Understand your spending patterns.
 </p>
 
-</div>
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
 
 
 </div>
